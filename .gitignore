@@ -45,6 +45,15 @@ models/*.npy
 *.pth
 *.npy
 
+# Document files (large)
+*.pdf
+*.doc
+*.docx
+*.xlsx
+*.xls
+*.txt
+*.pptx
+
 # Node
 node_modules/
 npm-debug.log
