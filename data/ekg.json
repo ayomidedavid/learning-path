@@ -1,0 +1,169 @@
+{
+    "nodes": [
+        {
+            "id": "Module 1: Foundational Numbers",
+            "grade_level": "Basic",
+            "details": "Fractions, Decimals, Integers, Number Bases, Modular Arithmetic"
+        },
+        {
+            "id": "Module 2: Advanced Numeration",
+            "grade_level": "SS1",
+            "details": "Indices, Logarithms, Surds, Sets, Logical Reasoning, Sequence & Series"
+        },
+        {
+            "id": "Module 3: Foundational Algebra",
+            "grade_level": "SS1",
+            "details": "Algebraic Expressions, Linear Equations, Formulae"
+        },
+        {
+            "id": "Module 4: Advanced Algebra",
+            "grade_level": "SS2",
+            "details": "Quadratic Equations, Linear Inequalities, Algebraic Fractions, Functions, Variation"
+        },
+        {
+            "id": "Module 5: Commercial Math",
+            "grade_level": "SS2",
+            "details": "Ratio, Proportions, Percentages, Financial Arithmetic, Matrices"
+        },
+        {
+            "id": "Module 6: Plane Geometry",
+            "grade_level": "SS1",
+            "details": "Angles, Triangles, Polygons, Circles, Construction, Loci"
+        },
+        {
+            "id": "Module 7: Coordinate Geo & Trig",
+            "grade_level": "SS2",
+            "details": "Straight Lines, Sine/Cosine/Tangent, Angles of Elevation/Depression, Bearings"
+        },
+        {
+            "id": "Module 8: Mensuration",
+            "grade_level": "SS2",
+            "details": "Perimeters, Areas, Volumes of basic and compound shapes"
+        },
+        {
+            "id": "Module 9: Introductory Calculus",
+            "grade_level": "SS3",
+            "details": "Differentiation, Integration, Rates of change"
+        },
+        {
+            "id": "Module 10: Stats & Probability",
+            "grade_level": "SS3",
+            "details": "Frequency Distribution, Dispersion, Experimental & Theoretical Probability"
+        },
+        {
+            "id": "Module 11: Vectors & Transformation",
+            "grade_level": "SS3",
+            "details": "Vectors in a Plane, Reflection, Rotation, Translation, Enlargement"
+        }
+    ],
+    "links": [
+        {
+            "source": "Module 1: Foundational Numbers",
+            "target": "Module 2: Advanced Numeration",
+            "relationship_type": "PREREQUISITE",
+            "cost": 1.0
+        },
+        {
+            "source": "Module 1: Foundational Numbers",
+            "target": "Module 3: Foundational Algebra",
+            "relationship_type": "PREREQUISITE",
+            "cost": 1.0
+        },
+        {
+            "source": "Module 2: Advanced Numeration",
+            "target": "Module 3: Foundational Algebra",
+            "relationship_type": "PREREQUISITE",
+            "cost": 1.0
+        },
+        {
+            "source": "Module 3: Foundational Algebra",
+            "target": "Module 4: Advanced Algebra",
+            "relationship_type": "PREREQUISITE",
+            "cost": 1.0
+        },
+        {
+            "source": "Module 1: Foundational Numbers",
+            "target": "Module 5: Commercial Math",
+            "relationship_type": "PREREQUISITE",
+            "cost": 1.0
+        },
+        {
+            "source": "Module 3: Foundational Algebra",
+            "target": "Module 5: Commercial Math",
+            "relationship_type": "PREREQUISITE",
+            "cost": 1.0
+        },
+        {
+            "source": "Module 3: Foundational Algebra",
+            "target": "Module 6: Plane Geometry",
+            "relationship_type": "PREREQUISITE",
+            "cost": 1.0
+        },
+        {
+            "source": "Module 4: Advanced Algebra",
+            "target": "Module 7: Coordinate Geo & Trig",
+            "relationship_type": "PREREQUISITE",
+            "cost": 1.0
+        },
+        {
+            "source": "Module 6: Plane Geometry",
+            "target": "Module 7: Coordinate Geo & Trig",
+            "relationship_type": "PREREQUISITE",
+            "cost": 1.0
+        },
+        {
+            "source": "Module 3: Foundational Algebra",
+            "target": "Module 8: Mensuration",
+            "relationship_type": "PREREQUISITE",
+            "cost": 1.0
+        },
+        {
+            "source": "Module 6: Plane Geometry",
+            "target": "Module 8: Mensuration",
+            "relationship_type": "PREREQUISITE",
+            "cost": 1.0
+        },
+        {
+            "source": "Module 7: Coordinate Geo & Trig",
+            "target": "Module 8: Mensuration",
+            "relationship_type": "PREREQUISITE",
+            "cost": 1.0
+        },
+        {
+            "source": "Module 4: Advanced Algebra",
+            "target": "Module 9: Introductory Calculus",
+            "relationship_type": "PREREQUISITE",
+            "cost": 1.0
+        },
+        {
+            "source": "Module 7: Coordinate Geo & Trig",
+            "target": "Module 9: Introductory Calculus",
+            "relationship_type": "PREREQUISITE",
+            "cost": 1.0
+        },
+        {
+            "source": "Module 1: Foundational Numbers",
+            "target": "Module 10: Stats & Probability",
+            "relationship_type": "PREREQUISITE",
+            "cost": 1.0
+        },
+        {
+            "source": "Module 6: Plane Geometry",
+            "target": "Module 10: Stats & Probability",
+            "relationship_type": "PREREQUISITE",
+            "cost": 1.0
+        },
+        {
+            "source": "Module 6: Plane Geometry",
+            "target": "Module 11: Vectors & Transformation",
+            "relationship_type": "PREREQUISITE",
+            "cost": 1.0
+        },
+        {
+            "source": "Module 7: Coordinate Geo & Trig",
+            "target": "Module 11: Vectors & Transformation",
+            "relationship_type": "PREREQUISITE",
+            "cost": 1.0
+        }
+    ]
+}

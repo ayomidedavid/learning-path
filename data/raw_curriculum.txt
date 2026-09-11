@@ -1,0 +1,29 @@
+SS1 General Mathematics Topics
+Module 1.1: Number Base System
+Module 2: Indices
+Module 3 : Logarithms
+Module 4 : Sets – 1
+Module 4 : Sets – 2
+Module 5 : Changing subject of the formula and Variation
+Module 6: Quadratic equation: factorization and graphical method
+Module 7: Logical reasoning
+Module 8: Basic Geometry theorems – Angle, Triangle and Parallelogram
+Module 9: Surface Area and Volume Of Solid Shapes
+Module 10: Statistics
+
+SS2 General Mathematics Topics
+Module 1: Approximation
+Module 2: Sequence and Series
+Module 3: Linear Inequality
+Module 4: Quadratic equation: formula and completing square method
+Module 5: Circle theorems
+Module 6: Trigonometry
+Module 7: Bearing and Distance
+Module 8: Measure of dispersion and central tendency
+Module 9: Probability
+
+SS3 General Mathematics Topics
+Module 1: Matrices
+Module 2: Longitude and Latitude
+Module 3: Differential Equation
+Module 4: Integration

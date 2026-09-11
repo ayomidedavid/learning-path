@@ -1,0 +1,11 @@
+Nazish Aijaz, He Lan, Tausif Raza, Muhammad Yaqub, Rashid Iqbal, Muhammad Salman Pathan,
+Artificial intelligence in agriculture: Advancing crop productivity and sustainability,
+Journal of Agriculture and Food Research,
+Volume 20,
+2025,
+101762,
+ISSN 2666-1543,
+https://doi.org/10.1016/j.jafr.2025.101762.
+(https://www.sciencedirect.com/science/article/pii/S2666154325001334)
+Abstract: The challenges posed by both climate change and population expansion are unlike anything agriculture has ever seen, and in order to sustain and boost agricultural output, new and creative technology must be used. Artificial intelligence (AI) is one such exponent of change that offers possible solutions in a number of agricultural production fields. Emphasis will be placed on robotic automation, machine learning applications, and the concept of precision farming. This research explores how integration in agriculture has made AI an excellent support for decision processes in crop management, providing real-time monitoring and predictive analytics. Higher agricultural yields and resilience are made possible by genetic advancements and AI in resource optimization. However, due to technological, societal, and legal obstacles, the promise for AI in agriculture has not yet materialized. Against this background, this study requires holistic policy frameworks, education, and stakeholder engagement as countermeasures to such challenges. The future potential applications of AI in agriculture continue to change the sector on behalf of improving global food security and sustainability; this concludes the study. This paper tries to bring to light the critical role that AI is most likely to play in shaping future agricultural practices based on an in-depth analysis of the current state of technology and upcoming opportunities.
+Keywords: Artificial intelligence; Precision farming; Machine learning; Agricultural robotics; Crop productivity

@@ -1,0 +1,25 @@
+grade_level,raw_topic,cleaned_topic,module_id
+SS1,Number Base System,number base system,Module 1.1
+SS1,Indices,indices,Module 2
+SS1,Logarithms,logarithms,Module 3
+SS1,Sets – 1,sets 1,Module 4
+SS1,Sets – 2,sets 2,Module 4
+SS1,Changing subject of the formula and Variation,changing subject of the formula and variation,Module 5
+SS1,Quadratic equation,quadratic equation,Module 6
+SS1,Logical reasoning,logical reasoning,Module 7
+SS1,"Basic Geometry theorems – Angle, Triangle and Parallelogram",basic geometry theorems angle triangle and parallelogram,Module 8
+SS1,Surface Area and Volume Of Solid Shapes,surface area and volume of solid shapes,Module 9
+SS1,Statistics,statistics,Module 10
+SS2,Approximation,approximation,Module 1
+SS2,Sequence and Series,sequence and series,Module 2
+SS2,Linear Inequality,linear inequality,Module 3
+SS2,Quadratic equation,quadratic equation,Module 4
+SS2,Circle theorems,circle theorems,Module 5
+SS2,Trigonometry,trigonometry,Module 6
+SS2,Bearing and Distance,bearing and distance,Module 7
+SS2,Measure of dispersion and central tendency,measure of dispersion and central tendency,Module 8
+SS2,Probability,probability,Module 9
+SS3,Matrices,matrices,Module 1
+SS3,Longitude and Latitude,longitude and latitude,Module 2
+SS3,Differential Equation,differential equation,Module 3
+SS3,Integration,integration,Module 4

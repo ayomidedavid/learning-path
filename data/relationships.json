@@ -1,0 +1,368 @@
+[
+    {
+        "source": "Sequence and Series",
+        "target": "Approximation",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Approximation",
+        "target": "Sequence and Series",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Statistics",
+        "target": "Approximation",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Approximation",
+        "target": "Statistics",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Logical reasoning",
+        "target": "Basic Geometry theorems \u2013 Angle, Triangle and Parallelogram",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Basic Geometry theorems \u2013 Angle, Triangle and Parallelogram",
+        "target": "Logical reasoning",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Surface Area and Volume Of Solid Shapes",
+        "target": "Basic Geometry theorems \u2013 Angle, Triangle and Parallelogram",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Basic Geometry theorems \u2013 Angle, Triangle and Parallelogram",
+        "target": "Surface Area and Volume Of Solid Shapes",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Bearing and Distance",
+        "target": "Measure of dispersion and central tendency",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Measure of dispersion and central tendency",
+        "target": "Bearing and Distance",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Trigonometry",
+        "target": "Bearing and Distance",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Bearing and Distance",
+        "target": "Trigonometry",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Changing subject of the formula and Variation",
+        "target": "Quadratic equation",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Changing subject of the formula and Variation",
+        "target": "Sets \u2013 2",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Sets \u2013 2",
+        "target": "Changing subject of the formula and Variation",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Circle theorems",
+        "target": "Quadratic equation",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Circle theorems",
+        "target": "Trigonometry",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Trigonometry",
+        "target": "Circle theorems",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Longitude and Latitude",
+        "target": "Differential Equation",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Differential Equation",
+        "target": "Longitude and Latitude",
+        "type": "PREREQUISITE",
+        "weight": 1.0
+    },
+    {
+        "source": "Indices",
+        "target": "Logarithms",
+        "type": "PREREQUISITE",
+        "weight": 1.0
+    },
+    {
+        "source": "Logarithms",
+        "target": "Indices",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Linear Inequality",
+        "target": "Quadratic equation",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Sequence and Series",
+        "target": "Linear Inequality",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Linear Inequality",
+        "target": "Sequence and Series",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Logarithms",
+        "target": "Sets \u2013 1",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Sets \u2013 1",
+        "target": "Logarithms",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Logical reasoning",
+        "target": "Quadratic equation",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Matrices",
+        "target": "Longitude and Latitude",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Longitude and Latitude",
+        "target": "Matrices",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Matrices",
+        "target": "Probability",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Probability",
+        "target": "Matrices",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Probability",
+        "target": "Measure of dispersion and central tendency",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Measure of dispersion and central tendency",
+        "target": "Probability",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Sets \u2013 1",
+        "target": "Sets \u2013 2",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Sets \u2013 2",
+        "target": "Sets \u2013 1",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Statistics",
+        "target": "Surface Area and Volume Of Solid Shapes",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Surface Area and Volume Of Solid Shapes",
+        "target": "Statistics",
+        "type": "PREREQUISITE",
+        "weight": 0.6666666666666666
+    },
+    {
+        "source": "Number Base System",
+        "target": "Indices",
+        "type": "PREREQUISITE",
+        "weight": 0.9
+    },
+    {
+        "source": "Indices",
+        "target": "Logarithms",
+        "type": "PREREQUISITE",
+        "weight": 0.9
+    },
+    {
+        "source": "Logarithms",
+        "target": "Sets \u2013 1",
+        "type": "PREREQUISITE",
+        "weight": 0.9
+    },
+    {
+        "source": "Sets \u2013 1",
+        "target": "Sets \u2013 2",
+        "type": "PREREQUISITE",
+        "weight": 0.9
+    },
+    {
+        "source": "Sets \u2013 2",
+        "target": "Changing subject of the formula and Variation",
+        "type": "PREREQUISITE",
+        "weight": 0.9
+    },
+    {
+        "source": "Changing subject of the formula and Variation",
+        "target": "Quadratic equation",
+        "type": "PREREQUISITE",
+        "weight": 0.9
+    },
+    {
+        "source": "Quadratic equation",
+        "target": "Logical reasoning",
+        "type": "PREREQUISITE",
+        "weight": 0.9
+    },
+    {
+        "source": "Logical reasoning",
+        "target": "Basic Geometry theorems \u2013 Angle, Triangle and Parallelogram",
+        "type": "PREREQUISITE",
+        "weight": 0.9
+    },
+    {
+        "source": "Basic Geometry theorems \u2013 Angle, Triangle and Parallelogram",
+        "target": "Surface Area and Volume Of Solid Shapes",
+        "type": "PREREQUISITE",
+        "weight": 0.9
+    },
+    {
+        "source": "Surface Area and Volume Of Solid Shapes",
+        "target": "Statistics",
+        "type": "PREREQUISITE",
+        "weight": 0.9
+    },
+    {
+        "source": "Statistics",
+        "target": "Approximation",
+        "type": "PREREQUISITE",
+        "weight": 0.9
+    },
+    {
+        "source": "Approximation",
+        "target": "Sequence and Series",
+        "type": "PREREQUISITE",
+        "weight": 0.9
+    },
+    {
+        "source": "Sequence and Series",
+        "target": "Linear Inequality",
+        "type": "PREREQUISITE",
+        "weight": 0.9
+    },
+    {
+        "source": "Linear Inequality",
+        "target": "Quadratic equation",
+        "type": "PREREQUISITE",
+        "weight": 0.9
+    },
+    {
+        "source": "Quadratic equation",
+        "target": "Circle theorems",
+        "type": "PREREQUISITE",
+        "weight": 0.9
+    },
+    {
+        "source": "Circle theorems",
+        "target": "Trigonometry",
+        "type": "PREREQUISITE",
+        "weight": 0.9
+    },
+    {
+        "source": "Trigonometry",
+        "target": "Bearing and Distance",
+        "type": "PREREQUISITE",
+        "weight": 0.9
+    },
+    {
+        "source": "Bearing and Distance",
+        "target": "Measure of dispersion and central tendency",
+        "type": "PREREQUISITE",
+        "weight": 0.9
+    },
+    {
+        "source": "Measure of dispersion and central tendency",
+        "target": "Probability",
+        "type": "PREREQUISITE",
+        "weight": 0.9
+    },
+    {
+        "source": "Probability",
+        "target": "Matrices",
+        "type": "PREREQUISITE",
+        "weight": 0.9
+    },
+    {
+        "source": "Matrices",
+        "target": "Longitude and Latitude",
+        "type": "PREREQUISITE",
+        "weight": 0.9
+    },
+    {
+        "source": "Longitude and Latitude",
+        "target": "Differential Equation",
+        "type": "PREREQUISITE",
+        "weight": 0.9
+    },
+    {
+        "source": "Differential Equation",
+        "target": "Integration",
+        "type": "PREREQUISITE",
+        "weight": 0.9
+    }
+]

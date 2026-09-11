@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin | SSM-LPRS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        table { width: 100%; border-collapse: collapse; margin-top: 20px;}
+        th, td { border: 1px solid var(--glass-border); padding: 12px; text-align: left; color: white;}
+        th { background-color: rgba(0, 210, 255, 0.1); color: var(--primary-accent);}
+        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;}
+        .logout-btn { background: transparent; border: 1px solid var(--primary-accent); color: var(--primary-accent); padding: 5px 15px; border-radius: 5px; cursor: pointer;}
+    </style>
+</head>
+<body>
+    <div class="glass-container" style="max-width: 900px;">
+        <div class="top-bar">
+            <h2>Admin Dashboard</h2>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+        <main style="display: block;">
+            <section class="card">
+                <h3>Registered Users & Progress</h3>
+                <table id="users-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Role</th>
+                            <th>Completed Topics</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Injected via JS -->
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+    <script src="admin.js"></script>
+</body>
+</html>

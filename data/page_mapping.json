@@ -1,0 +1,100 @@
+{
+    "SS1": {
+        "Number Base System": {
+            "start_page": 20,
+            "end_page": 30
+        },
+        "Indices": {
+            "start_page": 15,
+            "end_page": 25
+        },
+        "Logarithms": {
+            "start_page": 15,
+            "end_page": 25
+        },
+        "Sets \u2013 1": {
+            "start_page": 67,
+            "end_page": 77
+        },
+        "Sets \u2013 2": {
+            "start_page": 67,
+            "end_page": 77
+        },
+        "Changing subject of the formula and Variation": {
+            "start_page": 20,
+            "end_page": 30
+        },
+        "Logical reasoning": {
+            "start_page": 105,
+            "end_page": 115
+        },
+        "Basic Geometry theorems \u2013 Angle, Triangle and Parallelogram": {
+            "start_page": 20,
+            "end_page": 30
+        },
+        "Surface Area and Volume Of Solid Shapes": {
+            "start_page": 20,
+            "end_page": 30
+        },
+        "Statistics": {
+            "start_page": 108,
+            "end_page": 118
+        }
+    },
+    "SS2": {
+        "Quadratic equation": {
+            "start_page": 73,
+            "end_page": 83
+        },
+        "Approximation": {
+            "start_page": 42,
+            "end_page": 52
+        },
+        "Sequence and Series": {
+            "start_page": 20,
+            "end_page": 30
+        },
+        "Linear Inequality": {
+            "start_page": 20,
+            "end_page": 30
+        },
+        "Circle theorems": {
+            "start_page": 20,
+            "end_page": 30
+        },
+        "Trigonometry": {
+            "start_page": 48,
+            "end_page": 58
+        },
+        "Bearing and Distance": {
+            "start_page": 20,
+            "end_page": 30
+        },
+        "Measure of dispersion and central tendency": {
+            "start_page": 20,
+            "end_page": 30
+        },
+        "Probability": {
+            "start_page": 13,
+            "end_page": 23
+        }
+    },
+    "SS3": {
+        "Matrices": {
+            "start_page": 64,
+            "end_page": 74
+        },
+        "Longitude and Latitude": {
+            "start_page": 20,
+            "end_page": 30
+        },
+        "Differential Equation": {
+            "start_page": 105,
+            "end_page": 115
+        },
+        "Integration": {
+            "start_page": 16,
+            "end_page": 26
+        }
+    }
+}

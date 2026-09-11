@@ -1,0 +1,9 @@
+pandas
+gensim
+torch
+mlxtend
+scikit-learn
+networkx
+fastapi
+uvicorn
+pydantic
