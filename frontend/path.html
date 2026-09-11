@@ -6,107 +6,119 @@
     <title>Learning Path | SSM-LPRS</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
         .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;}
         .logout-btn { background: transparent; border: 1px solid var(--primary-accent); color: var(--primary-accent); padding: 5px 15px; border-radius: 5px; cursor: pointer;}
-        .path-layout { display: grid; grid-template-columns: 320px 1fr; gap: 1.5rem; }
-        .path-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
-        .path-step { background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); border-radius: 10px; padding: 0.8rem 1rem; cursor: pointer; color: white; }
-        .path-step.active { border-color: var(--primary-accent); box-shadow: 0 0 10px rgba(0, 210, 255, 0.2); }
-        .path-step.done { border-color: rgba(46, 213, 115, 0.7); }
+        .path-controls { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; align-items: center; }
         .content-box { background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: 12px; padding: 1.2rem; }
-        .quiz-option { display: block; margin: 0.6rem 0; padding: 0.7rem 0.9rem; border-radius: 8px; background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); cursor: pointer; }
-        .quiz-option.correct { background: rgba(46, 213, 115, 0.15); border-color: rgba(46, 213, 115, 0.6); }
-        .quiz-option.wrong { background: rgba(255, 71, 87, 0.12); border-color: rgba(255, 71, 87, 0.5); }
-        .concept-map {
-            position: relative;
-            min-height: 360px;
+        
+        #graph-container {
+            width: 100%;
+            min-height: 700px;
             background: radial-gradient(circle at center, rgba(0,210,255,0.08), rgba(255,255,255,0.02));
             border: 1px solid rgba(255,255,255,0.08);
             border-radius: 14px;
             overflow: hidden;
-            padding: 1rem;
         }
-        .network-svg {
-            position: absolute;
-            inset: 0;
+        
+        #network-svg {
             width: 100%;
             height: 100%;
-            pointer-events: none;
         }
-        .network-link {
-            fill: none;
-            stroke: rgba(0, 210, 255, 0.45);
-            stroke-width: 2;
-            stroke-linecap: round;
+        
+        .link {
+            stroke: rgba(100, 150, 200, 0.4);
+            stroke-width: 2px;
         }
-        .graph-nodes {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            min-height: 320px;
+        
+        .link.active {
+            stroke: rgba(0, 210, 255, 0.8);
+            stroke-width: 3px;
         }
-        .concept-node {
-            position: absolute;
-            transform: translate(-50%, -50%);
-            min-width: 118px;
-            max-width: 172px;
-            border: 1px solid rgba(255,255,255,0.14);
-            border-radius: 18px;
-            padding: 0.7rem 0.8rem;
-            text-align: center;
-            box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+        
+        .node circle {
+            stroke-width: 2px;
             cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
-            z-index: 1;
+            transition: all 0.3s ease;
         }
-        .concept-node:hover { transform: translate(-50%, -50%) scale(1.04); }
-        .concept-node.main {
-            min-width: 150px;
-            max-width: 210px;
-            padding: 0.9rem 1rem;
-            font-weight: 700;
+        
+        .node circle:hover {
+            r: 28;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
         }
-        .concept-node.active {
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 18px rgba(0, 210, 255, 0.3);
+        
+        .node.locked circle {
+            opacity: 0.5;
+            filter: grayscale(0.4);
         }
-        .concept-node.done {
-            border-color: rgba(46, 213, 115, 0.7);
+        
+        .node.active circle {
+            stroke: rgba(0, 210, 255, 0.9);
+            filter: drop-shadow(0 0 12px rgba(0, 210, 255, 0.6));
         }
-        .concept-node.locked {
-            opacity: 0.55;
-            filter: grayscale(0.25);
+        
+        .node.completed circle {
+            stroke: rgba(46, 213, 115, 0.9);
         }
-        .node-number {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.12);
-            font-size: 0.72rem;
-            font-weight: 700;
-            margin-bottom: 0.35rem;
-        }
-        .node-title {
-            font-size: 0.78rem;
-            line-height: 1.25;
+        
+        .node text {
+            pointer-events: none;
+            text-anchor: middle;
+            dominant-baseline: middle;
+            font-size: 12px;
             font-weight: 600;
-            word-break: break-word;
+            fill: white;
+            paint-order: stroke;
+            stroke: rgba(0, 0, 0, 0.8);
+            stroke-width: 2px;
         }
-        .node-lock {
+        
+        .node .label-bg {
+            opacity: 0.85;
+        }
+        
+        .legend {
             position: absolute;
-            top: 6px;
-            right: 8px;
-            font-size: 0.7rem;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 12px;
+            z-index: 100;
         }
-        @media (max-width: 900px) { .path-layout { grid-template-columns: 1fr; } }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 6px 0;
+        }
+        
+        .legend-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+        
+        #path-summary {
+            padding: 0.8rem 1rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 900px) { 
+            #graph-container { min-height: 500px; }
+        }
     </style>
 </head>
 <body>
-    <div class="glass-container" style="max-width: 1200px;">
+    <div class="glass-container" style="max-width: 1400px;">
         <div class="top-bar">
             <div>
                 <a href="dashboard.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">← Back to Topics</a>
@@ -115,27 +127,41 @@
             <button class="logout-btn" onclick="logout()">Logout</button>
         </div>
 
-        <main style="grid-template-columns: 1fr; display: block;">
+        <main style="display: block;">
             <section class="card">
-                <div style="display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap; margin-bottom: 1rem;">
+                <div class="path-controls">
                     <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
                         <button id="linear-mode" class="primary-btn" style="width:auto; padding:8px 14px; margin-top:0;">Linear Path</button>
                         <button id="dynamic-mode" class="primary-btn" style="width:auto; padding:8px 14px; margin-top:0; background: rgba(255,255,255,0.08);">Dynamic Path</button>
                     </div>
-                    <a href="concept-map.html" id="open-map-link" class="primary-btn" style="display:inline-block; width:auto; padding:10px 18px; margin-top:0; text-decoration:none; text-align:center;">Open Network Map</a>
+                    <a href="concept-map.html" id="open-map-link" class="primary-btn" style="display:inline-block; width:auto; padding:10px 18px; margin-top:0; text-decoration:none; text-align:center;">Full Network Map</a>
                 </div>
-                <div id="path-summary" style="padding: 0.8rem 1rem; background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); border-radius: 8px; color: var(--text-secondary); margin-bottom: 1rem;"></div>
+                
+                <div id="path-summary"></div>
 
-                <div class="path-layout">
-                    <div class="content-box">
-                        <h3 style="margin-bottom: 0.75rem;">Learning Route</h3>
-                        <ul id="path-list" class="path-list"></ul>
+                <div class="content-box" style="position: relative;">
+                    <h3 style="margin-bottom: 1rem;">Mathematics Learning Network</h3>
+                    
+                    <div id="graph-container">
+                        <svg id="network-svg"></svg>
+                        <div class="legend">
+                            <div style="font-weight: 600; margin-bottom: 8px;">Difficulty Level</div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: rgba(173, 216, 230, 0.8);"></div>
+                                <span>Foundational (SS1)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: rgba(144, 238, 144, 0.8);"></div>
+                                <span>Intermediate (SS2)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: rgba(250, 128, 114, 0.8);"></div>
+                                <span>Advanced (SS3)</span>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="content-box">
-                        <div id="concept-map" class="concept-map" aria-label="Learning concept map"></div>
-                        <div id="module-content" style="margin-top: 1.2rem;"></div>
-                    </div>
+                    
+                    <div id="module-content" style="margin-top: 1.2rem;"></div>
                 </div>
             </section>
         </main>
