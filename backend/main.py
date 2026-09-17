@@ -72,6 +72,7 @@ class PathRequest(BaseModel):
     target: str
     algorithm: str = "linear"
     completed_topics: List[str] = []
+    adaptive: bool = True
 
 class ProgressUpdate(BaseModel):
     topic_id: str
@@ -282,20 +283,36 @@ def recommend_path(request: PathRequest):
         result = generator.generate_dijkstra_path(request.source, request.target)
     elif algorithm_name == 'linear':
         result = generator.generate_linear_path(request.source, request.target)
-    elif algorithm_name == 'dynamic':
-        result = generator.generate_dynamic_path(
-            request.source,
-            request.target,
-            completed_topics=request.completed_topics
-        )
+    elif algorithm_name in ['dynamic', 'adaptive']:
+        if request.adaptive:
+            result = generator.generate_adaptive_path(
+                request.source,
+                request.target,
+                completed_topics=request.completed_topics
+            )
+        else:
+            result = generator.generate_dynamic_path(
+                request.source,
+                request.target,
+                completed_topics=request.completed_topics
+            )
     elif algorithm_name == 'aco':
         optimizer = AntColonyOptimizer(graph_path)
         result = optimizer.generate_aco_path(request.source, request.target)
     else:
-        raise HTTPException(status_code=400, detail="Invalid algorithm specified. Use linear, dynamic, dijkstra, or aco.")
+        raise HTTPException(status_code=400, detail="Invalid algorithm specified. Use linear, dynamic, adaptive, dijkstra, or aco.")
 
     if result["status"] == "error":
         raise HTTPException(status_code=400, detail=result["message"])
+
+    # Persistent AI Reinforcement: Record user traversal route into ACO pheromones
+    try:
+        clean_path = [p for p in result.get("path", []) if not str(p).startswith("Bridge:")]
+        if len(clean_path) >= 2:
+            optimizer = AntColonyOptimizer(graph_path)
+            optimizer.record_user_traversal(clean_path)
+    except Exception as e:
+        print(f"Warning: Failed to record ACO traversal: {e}")
 
     return result
 

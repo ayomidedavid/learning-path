@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:8000';
+const API_BASE = window.location.origin.includes('http') ? window.location.origin : 'http://localhost:8000';
 let token = localStorage.getItem('token');
 
 if (!token || localStorage.getItem('role') !== 'admin') {

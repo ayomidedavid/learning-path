@@ -1,0 +1,20 @@
+{
+  "Module 1: Foundational Numbers->Module 2: Advanced Numeration": 4.0,
+  "Module 1: Foundational Numbers->Module 3: Foundational Algebra": 46.0,
+  "Module 1: Foundational Numbers->Module 5: Commercial Math": 7.0,
+  "Module 1: Foundational Numbers->Module 10: Stats & Probability": 1.0,
+  "Module 2: Advanced Numeration->Module 3: Foundational Algebra": 4.0,
+  "Module 3: Foundational Algebra->Module 4: Advanced Algebra": 40.0,
+  "Module 3: Foundational Algebra->Module 5: Commercial Math": 1.0,
+  "Module 3: Foundational Algebra->Module 6: Plane Geometry": 1.0,
+  "Module 3: Foundational Algebra->Module 8: Mensuration": 7.0,
+  "Module 4: Advanced Algebra->Module 7: Coordinate Geo & Trig": 31.0,
+  "Module 4: Advanced Algebra->Module 9: Introductory Calculus": 4.0,
+  "Module 6: Plane Geometry->Module 7: Coordinate Geo & Trig": 1.0,
+  "Module 6: Plane Geometry->Module 8: Mensuration": 1.0,
+  "Module 6: Plane Geometry->Module 10: Stats & Probability": 1.0,
+  "Module 6: Plane Geometry->Module 11: Vectors & Transformation": 1.0,
+  "Module 7: Coordinate Geo & Trig->Module 8: Mensuration": 1.0,
+  "Module 7: Coordinate Geo & Trig->Module 9: Introductory Calculus": 1.0,
+  "Module 7: Coordinate Geo & Trig->Module 11: Vectors & Transformation": 1.0
+}

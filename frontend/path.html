@@ -3,169 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Path | SSM-LPRS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>Interactive Learning Path | SSM-LPRS</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <style>
-        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;}
-        .logout-btn { background: transparent; border: 1px solid var(--primary-accent); color: var(--primary-accent); padding: 5px 15px; border-radius: 5px; cursor: pointer;}
-        .path-controls { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; align-items: center; }
-        .content-box { background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: 12px; padding: 1.2rem; }
-        
-        #graph-container {
-            width: 100%;
-            min-height: 700px;
-            background: radial-gradient(circle at center, rgba(0,210,255,0.08), rgba(255,255,255,0.02));
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 14px;
-            overflow: hidden;
-        }
-        
-        #network-svg {
-            width: 100%;
-            height: 100%;
-        }
-        
-        .link {
-            stroke: rgba(100, 150, 200, 0.4);
-            stroke-width: 2px;
-        }
-        
-        .link.active {
-            stroke: rgba(0, 210, 255, 0.8);
-            stroke-width: 3px;
-        }
-        
-        .node circle {
-            stroke-width: 2px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .node circle:hover {
-            r: 28;
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
-        }
-        
-        .node.locked circle {
-            opacity: 0.5;
-            filter: grayscale(0.4);
-        }
-        
-        .node.active circle {
-            stroke: rgba(0, 210, 255, 0.9);
-            filter: drop-shadow(0 0 12px rgba(0, 210, 255, 0.6));
-        }
-        
-        .node.completed circle {
-            stroke: rgba(46, 213, 115, 0.9);
-        }
-        
-        .node text {
-            pointer-events: none;
-            text-anchor: middle;
-            dominant-baseline: middle;
-            font-size: 12px;
-            font-weight: 600;
-            fill: white;
-            paint-order: stroke;
-            stroke: rgba(0, 0, 0, 0.8);
-            stroke-width: 2px;
-        }
-        
-        .node .label-bg {
-            opacity: 0.85;
-        }
-        
-        .legend {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 8px;
-            padding: 12px 16px;
-            font-size: 12px;
-            z-index: 100;
-        }
-        
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin: 6px 0;
-        }
-        
-        .legend-dot {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-        }
-        
-        #path-summary {
-            padding: 0.8rem 1rem;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid var(--glass-border);
-            border-radius: 8px;
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-        }
-        
-        @media (max-width: 900px) { 
-            #graph-container { min-height: 500px; }
-        }
-    </style>
 </head>
-<body>
-    <div class="glass-container" style="max-width: 1400px;">
-        <div class="top-bar">
-            <div>
-                <a href="dashboard.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">← Back to Topics</a>
-                <h2 id="path-title" style="margin-top: 10px;">Learning Path</h2>
-            </div>
-            <button class="logout-btn" onclick="logout()">Logout</button>
-        </div>
+<body class="app-body">
+    <div class="glass-container">
+        <!-- Nav Header -->
+        <header class="nav-bar">
+            <a href="dashboard.html" class="nav-back-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                <span>Curriculum Dashboard</span>
+            </a>
 
-        <main style="display: block;">
-            <section class="card">
-                <div class="path-controls">
-                    <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-                        <button id="linear-mode" class="primary-btn" style="width:auto; padding:8px 14px; margin-top:0;">Linear Path</button>
-                        <button id="dynamic-mode" class="primary-btn" style="width:auto; padding:8px 14px; margin-top:0; background: rgba(255,255,255,0.08);">Dynamic Path</button>
-                    </div>
-                    <a href="concept-map.html" id="open-map-link" class="primary-btn" style="display:inline-block; width:auto; padding:10px 18px; margin-top:0; text-decoration:none; text-align:center;">Full Network Map</a>
+            <div class="nav-title-group">
+                <div class="nav-title-row">
+                    <h2 id="path-title">Module 1: Foundational Numbers</h2>
+                    <span class="level-badge" id="level-badge">SS1 Level</span>
                 </div>
-                
-                <div id="path-summary"></div>
+                <p class="nav-subtitle">Prerequisite Dependency Sequence & Knowledge Mapping</p>
+            </div>
 
-                <div class="content-box" style="position: relative;">
-                    <h3 style="margin-bottom: 1rem;">Mathematics Learning Network</h3>
-                    
-                    <div id="graph-container">
-                        <svg id="network-svg"></svg>
-                        <div class="legend">
-                            <div style="font-weight: 600; margin-bottom: 8px;">Difficulty Level</div>
-                            <div class="legend-item">
-                                <div class="legend-dot" style="background: rgba(173, 216, 230, 0.8);"></div>
-                                <span>Foundational (SS1)</span>
-                            </div>
-                            <div class="legend-item">
-                                <div class="legend-dot" style="background: rgba(144, 238, 144, 0.8);"></div>
-                                <span>Intermediate (SS2)</span>
-                            </div>
-                            <div class="legend-item">
-                                <div class="legend-dot" style="background: rgba(250, 128, 114, 0.8);"></div>
-                                <span>Advanced (SS3)</span>
-                            </div>
+            <div class="header-controls">
+                <div class="zoom-controls-group">
+                    <button class="icon-btn" id="zoom-in-btn" title="Zoom In">+</button>
+                    <button class="icon-btn" id="zoom-out-btn" title="Zoom Out">-</button>
+                    <button class="icon-btn" id="zoom-fit-btn" title="Fit to Screen">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                    </button>
+                </div>
+
+                <a href="concept-map.html" id="open-map-link" class="action-pill-btn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    <span>Full Concept Map</span>
+                </a>
+
+                <button class="dashboard-logout-btn" onclick="logout()">
+                    <span>Logout</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Layout Grid -->
+        <main class="path-layout">
+            <!-- Sidebar Panel -->
+            <aside class="sidebar-panel">
+                <!-- Strategy Card -->
+                <div class="card" id="strategy-card">
+                    <div class="sidebar-header-row">
+                        <span class="sidebar-section-title">CURRICULUM STRATEGY</span>
+                        <div class="optimal-path-tag">
+                            <span class="optimal-dot"></span>
+                            <span>Optimal Path</span>
                         </div>
                     </div>
-                    
-                    <div id="module-content" style="margin-top: 1.2rem;"></div>
+
+                    <div class="segmented-toggle">
+                        <button id="linear-mode" class="toggle-btn active">Linear</button>
+                        <button id="dynamic-mode" class="toggle-btn">Adaptive Flow</button>
+                    </div>
+
+                    <div class="sidebar-metrics">
+                        <div class="metric-item">
+                            <label>Structure</label>
+                            <span id="structure-type-label">Linear Syllabus</span>
+                        </div>
+                        <div class="metric-item">
+                            <label>Path Depth</label>
+                            <span id="path-depth-label">6 Stages (SS1)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Selected Module Card -->
+                <div class="card" id="inspector-card">
+                    <div class="selected-module-badge-row">
+                        <span class="selected-badge">SELECTED MODULE</span>
+                        <span style="font-size: 0.72rem; color: var(--text-secondary); font-weight: 600;" id="module-level-tag">SS1 Core</span>
+                    </div>
+
+                    <div id="module-content">
+                        <h3 class="selected-module-title" id="module-title-text">Module 1: Foundational Numbers</h3>
+                        <p class="selected-module-desc" id="module-desc-text">Core prerequisite mastery covering positional representations, binary/modular arithmetic systems, and fundamental root bases.</p>
+
+                        <div class="sub-header-title">PREREQUISITE STATUS</div>
+                        <div class="prereq-list" id="prereq-list-container">
+                            <div class="prereq-item">
+                                <div class="prereq-name"><span class="check-icon">✓</span> Basic Arithmetic Operations</div>
+                                <span class="prereq-status-tag">Completed</span>
+                            </div>
+                            <div class="prereq-item">
+                                <div class="prereq-name"><span class="check-icon">✓</span> Prime Factorization & GCD</div>
+                                <span class="prereq-status-tag">Completed</span>
+                            </div>
+                        </div>
+
+                        <div class="sub-header-title">KEY OBJECTIVES</div>
+                        <ul class="objectives-list" id="objectives-list-container">
+                            <li>Convert accurately across Bases 2, 8, 10, and 16</li>
+                            <li>Evaluate cyclic residues in modular clock systems</li>
+                            <li>Apply logarithmic laws to algebraic expressions</li>
+                        </ul>
+
+                        <button class="btn-primary-indigo" id="start-module-btn">
+                            <span>Start Learning Module</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </button>
+
+                        <button class="btn-secondary-dark" id="diagnostic-btn">Take Diagnostic Assessment</button>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Canvas View -->
+            <section class="canvas-card" id="canvas-card">
+                <!-- Top Canvas Overlay Bar -->
+                <div class="canvas-top-bar">
+                    <div class="search-filter-pill">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--text-secondary);"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" id="concept-filter-input" placeholder="Filter concepts..." />
+                        <select id="level-filter-select">
+                            <option value="all">SS1 Foundation</option>
+                            <option value="ss2">SS2 Intermediate</option>
+                            <option value="ss3">SS3 Advanced</option>
+                        </select>
+                    </div>
+
+                    <div class="graph-tag-badge">
+                        <span class="graph-tag-dot"></span>
+                        <span>Prerequisite Dependency Graph</span>
+                    </div>
+                </div>
+
+                <!-- SVG Graph Area -->
+                <svg id="network-svg" class="network-svg-canvas"></svg>
+
+                <!-- HTML Nodes Overlay Container (Native DOM Rendering) -->
+                <div id="html-nodes-container" class="html-nodes-layer"></div>
+
+                <!-- Bottom-Left Minimap Overlay -->
+                <div class="minimap-widget" id="minimap-widget">
+                    <div class="minimap-viewport" id="minimap-viewport"></div>
+                    <div class="minimap-dot active" style="top: 30%; left: 20%;"></div>
+                    <div class="minimap-dot active" style="top: 38%; left: 50%;"></div>
+                    <div class="minimap-dot" style="top: 25%; left: 78%;"></div>
+                    <div class="minimap-dot" style="top: 65%; left: 82%;"></div>
+                </div>
+
+                <!-- Bottom-Right Legend Overlay -->
+                <div class="legend-widget">
+                    <div class="legend-header">NODE STATUS</div>
+                    <div class="legend-list">
+                        <div class="legend-item">
+                            <span class="legend-dot-solid-blue"></span>
+                            <span>Active / Selected</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot-white"></span>
+                            <span>Completed Stage</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot-outline-purple"></span>
+                            <span>Unlocked Next Step</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot-gray"></span>
+                            <span>Locked Prerequisite</span>
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>
     </div>
+
+    <!-- Interactive Assessment & Learning Module Modal Overlay -->
+    <div class="modal-backdrop hidden" id="modal-backdrop">
+        <div class="modal-card" id="modal-card">
+            <button class="modal-close-btn" id="modal-close-btn" onclick="closeModal()">✕</button>
+            <div id="modal-body-content"></div>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom App Navigation Bar -->
+    <nav class="mobile-bottom-nav">
+        <button class="mobile-nav-item active" onclick="switchMobileTab('graph')" id="mobile-tab-graph">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+            <span>Graph</span>
+        </button>
+        <button class="mobile-nav-item" onclick="switchMobileTab('module')" id="mobile-tab-module">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            <span>Module</span>
+        </button>
+        <button class="mobile-nav-item" onclick="switchMobileTab('strategy')" id="mobile-tab-strategy">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+            <span>Strategy</span>
+        </button>
+        <a href="concept-map.html" class="mobile-nav-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            <span>Full Map</span>
+        </a>
+    </nav>
 
     <script src="path.js"></script>
 </body>

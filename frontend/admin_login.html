@@ -2,60 +2,138 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>SSM-LPRS | Admin Access</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Sign In | SSM-LPRS</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="glass-container" style="max-width: 500px;">
-        <header>
-            <h1 style="background: -webkit-linear-gradient(45deg, #ff4b2b, #ff416c); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Admin Portal</h1>
-            <p>Sign in or Register as Administrator</p>
-        </header>
-        <main style="display: block;">
-            <div id="error-message" class="error hidden"></div>
-            <div class="card">
-                <div class="form-group">
-                    <label>Admin Username:</label>
-                    <input type="text" id="username" class="styled-select">
-                </div>
-                <div class="form-group">
-                    <label>Admin Password:</label>
-                    <input type="password" id="password" class="styled-select">
-                </div>
-                
-                <div id="login-form">
-                    <button id="login-btn" class="primary-btn" style="background: linear-gradient(45deg, #ff416c, #ff4b2b);">Admin Login</button>
-                    <p style="text-align: center; margin-top: 15px; font-size: 0.9rem;">
-                        New Admin? <a href="#" id="show-signup" style="color: #ff4b2b;">Register here</a>
-                    </p>
+<body class="auth-page-body">
+    <div class="auth-split-card">
+        <!-- Left Side: Form Container -->
+        <div class="auth-form-side">
+            <div>
+                <!-- Form Header -->
+                <h1 class="auth-title" id="form-title">Admin Sign In</h1>
+                <p class="auth-subtitle" id="form-subtitle">Authenticate to access administrative portal</p>
+
+                <!-- Error Alert Box -->
+                <div id="error-message" class="error hidden" style="background: #fef2f2; border: 1px solid #fca5a5; color: #dc2626; border-radius: 12px; margin-bottom: 0.85rem; padding: 10px 14px; font-size: 0.82rem;">
+                    <span id="error-text">Please enter credentials</span>
                 </div>
 
-                <div id="signup-form" class="hidden">
-                    <button id="register-admin-btn" class="primary-btn" style="background: linear-gradient(45deg, #ff416c, #ff4b2b);">Register Admin</button>
-                    <p style="text-align: center; margin-top: 15px; font-size: 0.9rem;">
-                        Already an Admin? <a href="#" id="show-login" style="color: #ff4b2b;">Login here</a>
-                    </p>
+                <!-- Admin Login Form -->
+                <div id="login-form">
+                    <div class="form-group" style="margin-bottom: 0.85rem;">
+                        <label for="username" class="auth-label">Admin Username</label>
+                        <input type="text" id="username" class="auth-input" placeholder="Enter admin username" autocomplete="username">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 1.1rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                            <label for="password" class="auth-label" style="margin: 0;">Admin Password</label>
+                            <a href="#" onclick="alert('Admin security reset request submitted')" class="purple-link">Forgot Password?</a>
+                        </div>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="password" class="auth-input" placeholder="Enter admin password" autocomplete="current-password">
+                            <button type="button" class="toggle-password-btn" onclick="togglePasswordVisibility('password', this)" aria-label="Toggle password visibility" title="Show/Hide Password">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <button id="login-btn" class="auth-btn-purple">
+                        <span>Authenticate Admin</span>
+                    </button>
+                    <div class="auth-footer-text">
+                        Register new Admin? <a href="#" id="show-signup" class="purple-link">Register Admin</a>
+                    </div>
                 </div>
-                
-                <div style="text-align: center; margin-top: 25px;">
-                    <a href="index.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.85rem;">← Back to Student Login</a>
+
+                <!-- Admin Signup Registration Form -->
+                <div id="signup-form" class="hidden">
+                    <div class="form-group" style="margin-bottom: 0.85rem;">
+                        <label for="reg-username" class="auth-label">Admin Username</label>
+                        <input type="text" id="reg-username" class="auth-input" placeholder="Enter admin username">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 1.1rem;">
+                        <label for="reg-password" class="auth-label">Admin Security Password</label>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="reg-password" class="auth-input" placeholder="Create admin password">
+                            <button type="button" class="toggle-password-btn" onclick="togglePasswordVisibility('reg-password', this)" aria-label="Toggle password visibility" title="Show/Hide Password">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <button id="register-admin-btn" class="auth-btn-purple">
+                        <span>Register Administrator</span>
+                    </button>
+                    <div class="auth-footer-text">
+                        Already an Admin? <a href="#" id="show-login" class="purple-link">Sign In</a>
+                    </div>
                 </div>
             </div>
-        </main>
+
+            <!-- Bottom Student Portal Link -->
+            <div style="text-align: center; margin-top: 1.25rem;">
+                <a href="index.html" class="purple-link-subtle">
+                    ← Back to Student Portal
+                </a>
+            </div>
+        </div>
+
+        <!-- Right Side: Purple Halftone Dot Matrix Art Panel -->
+        <div class="auth-art-side">
+            <svg width="100%" height="100%" viewBox="0 0 500 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="purpleGradientAdmin" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#7c3aed"/>
+                        <stop offset="50%" stop-color="#6366f1"/>
+                        <stop offset="100%" stop-color="#4f46e5"/>
+                    </linearGradient>
+                </defs>
+                <rect width="100%" height="100%" fill="#ffffff"/>
+                <!-- Geometric & Purple Halftone Dot Wave Curves -->
+                <g fill="url(#purpleGradientAdmin)">
+                    <circle cx="280" cy="80" r="14"/><circle cx="310" cy="80" r="18"/><circle cx="350" cy="80" r="22"/><circle cx="400" cy="80" r="26"/><circle cx="450" cy="80" r="30"/>
+                    <circle cx="260" cy="120" r="12"/><circle cx="295" cy="120" r="16"/><circle cx="335" cy="120" r="20"/><circle cx="380" cy="120" r="24"/><circle cx="430" cy="120" r="28"/><circle cx="480" cy="120" r="32"/>
+                    <circle cx="240" cy="160" r="10"/><circle cx="275" cy="160" r="14"/><circle cx="315" cy="160" r="18"/><circle cx="360" cy="160" r="22"/><circle cx="410" cy="160" r="26"/><circle cx="460" cy="160" r="30"/>
+                    <circle cx="220" cy="200" r="8"/><circle cx="255" cy="200" r="12"/><circle cx="295" cy="200" r="16"/><circle cx="340" cy="200" r="20"/><circle cx="390" cy="200" r="24"/><circle cx="440" cy="200" r="28"/>
+                    <circle cx="230" cy="240" r="10"/><circle cx="265" cy="240" r="14"/><circle cx="305" cy="240" r="18"/><circle cx="350" cy="240" r="22"/><circle cx="400" cy="240" r="26"/><circle cx="450" cy="240" r="30"/>
+                    <circle cx="250" cy="280" r="12"/><circle cx="285" cy="280" r="16"/><circle cx="325" cy="280" r="20"/><circle cx="370" cy="280" r="24"/><circle cx="420" cy="280" r="28"/><circle cx="470" cy="280" r="32"/>
+                    <circle cx="280" cy="320" r="14"/><circle cx="315" cy="320" r="18"/><circle cx="355" cy="320" r="22"/><circle cx="400" cy="320" r="26"/><circle cx="450" cy="320" r="30"/>
+                    <circle cx="310" cy="360" r="12"/><circle cx="345" cy="360" r="16"/><circle cx="385" cy="360" r="20"/><circle cx="430" cy="360" r="24"/><circle cx="475" cy="360" r="28"/>
+                    <circle cx="340" cy="400" r="10"/><circle cx="375" cy="400" r="14"/><circle cx="415" cy="400" r="18"/><circle cx="460" cy="400" r="22"/>
+                    <circle cx="370" cy="440" r="8"/><circle cx="405" cy="440" r="12"/><circle cx="445" cy="440" r="16"/><circle cx="485" cy="440" r="20"/>
+                    <circle cx="400" cy="480" r="6"/><circle cx="435" cy="480" r="10"/><circle cx="475" cy="480" r="14"/>
+                </g>
+                <!-- Purple Dispersion dots -->
+                <g fill="url(#purpleGradientAdmin)" opacity="0.85">
+                    <circle cx="200" cy="180" r="4"/><circle cx="210" cy="230" r="5"/><circle cx="220" cy="290" r="6"/><circle cx="240" cy="350" r="7"/><circle cx="270" cy="410" r="8"/><circle cx="310" cy="460" r="9"/>
+                    <circle cx="180" cy="140" r="3"/><circle cx="190" cy="190" r="4"/><circle cx="205" cy="250" r="5"/><circle cx="225" cy="310" r="6"/><circle cx="255" cy="370" r="7"/><circle cx="295" cy="430" r="8"/>
+                    <circle cx="160" cy="100" r="2"/><circle cx="175" cy="150" r="3"/><circle cx="190" cy="210" r="4"/><circle cx="210" cy="270" r="5"/><circle cx="240" cy="330" r="6"/><circle cx="280" cy="390" r="7"/>
+                </g>
+            </svg>
+        </div>
     </div>
-    
+
     <script>
-        const API_BASE = 'http://localhost:8000';
+        const API_BASE = window.location.origin.includes('http') ? window.location.origin : 'http://localhost:8000';
 
         document.getElementById('show-signup').addEventListener('click', (e) => {
             e.preventDefault();
+            document.getElementById('form-title').innerText = 'Register Admin';
+            document.getElementById('form-subtitle').innerText = 'Create administrator access credentials';
             document.getElementById('login-form').classList.add('hidden');
             document.getElementById('signup-form').classList.remove('hidden');
         });
 
         document.getElementById('show-login').addEventListener('click', (e) => {
             e.preventDefault();
+            document.getElementById('form-title').innerText = 'Admin Sign In';
+            document.getElementById('form-subtitle').innerText = 'Authenticate to access administrative portal';
             document.getElementById('signup-form').classList.add('hidden');
             document.getElementById('login-form').classList.remove('hidden');
         });
@@ -66,8 +144,21 @@
         async function auth(action) {
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
+            const btn = document.getElementById('login-btn');
             
-            if(!username || !password) return showError("Please enter credentials");
+            if(!username || !password) return showError("Please enter admin credentials");
+
+            const originalContent = btn ? btn.innerHTML : '';
+            if (btn) {
+                btn.disabled = true;
+                btn.style.opacity = '0.85';
+                btn.innerHTML = `
+                    <svg class="spinner" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-dasharray="31.4" stroke-dashoffset="10" stroke-linecap="round"></circle>
+                    </svg>
+                    <span>Authenticating...</span>
+                `;
+            }
 
             try {
                 const formData = new URLSearchParams();
@@ -92,14 +183,32 @@
                 window.location.href = 'admin.html';
             } catch (e) {
                 showError(e.message);
+                if (btn) {
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                    btn.innerHTML = originalContent;
+                }
             }
         }
 
         async function register(role) {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+            const username = document.getElementById('reg-username').value;
+            const password = document.getElementById('reg-password').value;
+            const btn = document.getElementById('register-admin-btn');
             
             if(!username || !password) return showError("Please enter credentials to register");
+
+            const originalContent = btn ? btn.innerHTML : '';
+            if (btn) {
+                btn.disabled = true;
+                btn.style.opacity = '0.85';
+                btn.innerHTML = `
+                    <svg class="spinner" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-dasharray="31.4" stroke-dashoffset="10" stroke-linecap="round"></circle>
+                    </svg>
+                    <span>Creating Admin...</span>
+                `;
+            }
 
             try {
                 const res = await fetch(`${API_BASE}/register`, {
@@ -110,17 +219,49 @@
                 const data = await res.json();
                 if(!res.ok) throw new Error(data.detail);
                 
-                alert(`Registered successfully as ${role}. You can now login.`);
+                // Auto-fill login fields with created credentials
+                const loginUserEl = document.getElementById('username');
+                const loginPassEl = document.getElementById('password');
+                if (loginUserEl) loginUserEl.value = username;
+                if (loginPassEl) loginPassEl.value = password;
+
                 document.getElementById('show-login').click();
+                
+                // Auto-authenticate immediately
+                await auth('login');
             } catch (e) {
                 showError(e.message);
+                if (btn) {
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                    btn.innerHTML = originalContent;
+                }
             }
         }
 
         function showError(msg) {
             const err = document.getElementById('error-message');
-            err.textContent = msg;
+            document.getElementById('error-text').textContent = msg;
             err.classList.remove('hidden');
+        }
+
+        function togglePasswordVisibility(inputId, btn) {
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            const isPassword = input.type === 'password';
+            input.type = isPassword ? 'text' : 'password';
+
+            btn.innerHTML = isPassword ? `
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                </svg>
+            ` : `
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+            `;
         }
     </script>
 </body>

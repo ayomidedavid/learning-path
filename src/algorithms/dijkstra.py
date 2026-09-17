@@ -6,7 +6,10 @@ class PathGenerator:
     def __init__(self, graph_path):
         with open(graph_path, 'r') as f:
             data = json.load(f)
-        self.G = nx.node_link_graph(data)
+        if 'links' in data and 'edges' not in data:
+            self.G = nx.node_link_graph(data, edges='links')
+        else:
+            self.G = nx.node_link_graph(data)
 
     def _calculate_total_cost(self, path):
         total_cost = 0
@@ -141,6 +144,78 @@ class PathGenerator:
                 "status": "error",
                 "message": str(e)
             }
+
+    def generate_adaptive_path(self, source, target, completed_topics=None):
+        """
+        Produces a dynamic, self-adapting path. Detects if student deviates from the standard
+        route or skips prerequisites, and dynamically injects adaptive bridge nodes to repair learning gaps.
+        """
+        completed_topics = set(completed_topics or [])
+
+        # Step 1: Compute standard dynamic path
+        base_result = self.generate_dynamic_path(source, target, completed_topics)
+        if base_result.get("status") == "error":
+            # If graph has no direct path, build direct bridge path
+            base_path = [source, target] if source in self.G and target in self.G else []
+        else:
+            base_path = base_result.get("path", [])
+
+        if not base_path:
+            return base_result
+
+        # Step 2: Perform Prerequisite Gap Analysis for target
+        # Reverse traversal to find all required ancestors for target
+        parents = {}
+        for u, v in self.G.edges():
+            if v not in parents:
+                parents[v] = []
+            parents[v].append(u)
+
+        missing_prereqs = []
+        stack = [target]
+        visited = set()
+        while stack:
+            curr = stack.pop()
+            if curr in visited:
+                continue
+            visited.add(curr)
+            for p in parents.get(curr, []):
+                if p not in completed_topics and p != source and p not in base_path:
+                    missing_prereqs.append(p)
+                if p not in visited:
+                    stack.append(p)
+
+        is_deviated = len(missing_prereqs) > 0
+        bridge_nodes = []
+        adaptive_path = list(base_path)
+
+        if is_deviated:
+            # Step 3: Inject Adaptive Bridge Nodes before target
+            target_idx = adaptive_path.index(target) if target in adaptive_path else len(adaptive_path)
+            for p in missing_prereqs:
+                bridge_id = f"Bridge: Prereq Gap ({p})"
+                bridge_nodes.append({
+                    "id": bridge_id,
+                    "target_topic": target,
+                    "prereq_topic": p,
+                    "title": f"Adaptive Bridge: {p}",
+                    "details": f"Dynamically injected remedial topic covering '{p}' to prepare you for '{target}'.",
+                    "is_bridge": True
+                })
+                # Insert bridge node into active path sequence right before target
+                adaptive_path.insert(target_idx, bridge_id)
+                target_idx += 1
+
+        return {
+            "algorithm": "Adaptive",
+            "path": adaptive_path,
+            "base_path": base_path,
+            "is_deviated": is_deviated,
+            "bridge_nodes": bridge_nodes,
+            "total_cost": self._calculate_total_cost([p for p in adaptive_path if not p.startswith("Bridge:")]),
+            "status": "success",
+            "message": "Custom adaptive path generated with prerequisite gap repair." if is_deviated else "Standard dynamic route on track."
+        }
 
 if __name__ == "__main__":
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

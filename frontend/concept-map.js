@@ -1,8 +1,8 @@
-const API_BASE = 'http://localhost:8000';
+const API_BASE = window.location.origin.includes('http') ? window.location.origin : 'http://localhost:8000';
 let token = localStorage.getItem('token');
 let graphData = null;
 let completedTopics = [];
-let selectedTopic = new URLSearchParams(window.location.search).get('target') || 'Sets';
+let selectedTopic = new URLSearchParams(window.location.search).get('target') || 'Module 1: Foundational Numbers';
 
 if (!token) window.location.href = 'index.html';
 
@@ -25,12 +25,12 @@ function getTopicFamily(topicId) {
 function getFamilyColor(topicId) {
     const family = getTopicFamily(topicId);
     const palette = {
-        Foundational: 'linear-gradient(135deg, rgba(255, 196, 87, 0.35), rgba(255, 153, 51, 0.18))',
-        Algebra: 'linear-gradient(135deg, rgba(126, 211, 255, 0.35), rgba(58, 123, 213, 0.18))',
-        Geometry: 'linear-gradient(135deg, rgba(110, 231, 183, 0.30), rgba(36, 191, 129, 0.18))',
-        Calculus: 'linear-gradient(135deg, rgba(195, 132, 255, 0.30), rgba(149, 76, 233, 0.18))',
-        Statistics: 'linear-gradient(135deg, rgba(253, 164, 175, 0.30), rgba(244, 114, 182, 0.18))',
-        Applied: 'linear-gradient(135deg, rgba(96, 165, 250, 0.30), rgba(16, 185, 129, 0.16))'
+        Foundational: 'linear-gradient(135deg, rgba(255, 159, 67, 0.4), rgba(255, 121, 63, 0.2))',
+        Algebra: 'linear-gradient(135deg, rgba(0, 242, 254, 0.4), rgba(79, 172, 254, 0.2))',
+        Geometry: 'linear-gradient(135deg, rgba(0, 245, 212, 0.4), rgba(38, 166, 154, 0.2))',
+        Calculus: 'linear-gradient(135deg, rgba(122, 34, 255, 0.4), rgba(156, 39, 176, 0.2))',
+        Statistics: 'linear-gradient(135deg, rgba(247, 37, 133, 0.4), rgba(233, 30, 99, 0.2))',
+        Applied: 'linear-gradient(135deg, rgba(0, 242, 254, 0.3), rgba(0, 245, 212, 0.2))'
     };
     return palette[family] || palette.Applied;
 }

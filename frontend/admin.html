@@ -2,39 +2,70 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin | SSM-LPRS</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal | SSM-LPRS</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        table { width: 100%; border-collapse: collapse; margin-top: 20px;}
-        th, td { border: 1px solid var(--glass-border); padding: 12px; text-align: left; color: white;}
-        th { background-color: rgba(0, 210, 255, 0.1); color: var(--primary-accent);}
-        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;}
-        .logout-btn { background: transparent; border: 1px solid var(--primary-accent); color: var(--primary-accent); padding: 5px 15px; border-radius: 5px; cursor: pointer;}
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 1rem;
+        }
+        th, td {
+            border-bottom: 1px solid var(--glass-border);
+            padding: 14px 18px;
+            text-align: left;
+            color: #ffffff;
+            font-size: 0.9rem;
+        }
+        th {
+            background: rgba(6, 10, 20, 0.7);
+            color: var(--primary-cyan);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            letter-spacing: 1px;
+        }
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.03);
+        }
     </style>
 </head>
 <body>
-    <div class="glass-container" style="max-width: 900px;">
-        <div class="top-bar">
-            <h2>Admin Dashboard</h2>
-            <button class="logout-btn" onclick="logout()">Logout</button>
+    <div class="glass-container" style="max-width: 960px;">
+        <div class="nav-bar">
+            <div>
+                <h2>Admin Management Dashboard</h2>
+                <p style="font-size: 0.82rem; color: var(--text-secondary);">Student Progress Monitoring & Platform Management</p>
+            </div>
+            <button class="dashboard-logout-btn" onclick="logout()">
+                <span>Logout</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            </button>
         </div>
+
         <main style="display: block;">
             <section class="card">
-                <h3>Registered Users & Progress</h3>
-                <table id="users-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Username</th>
-                            <th>Role</th>
-                            <th>Completed Topics</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Injected via JS -->
-                    </tbody>
-                </table>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 1rem;">
+                    <h3>Registered System Users</h3>
+                    <span class="badge">Live Directory</span>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table id="users-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>System Role</th>
+                                <th>Completed Progress</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Injected via JS -->
+                        </tbody>
+                    </table>
+                </div>
             </section>
         </main>
     </div>
