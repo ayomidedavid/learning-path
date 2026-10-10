@@ -3,7 +3,11 @@ gensim
 torch
 mlxtend
 scikit-learn
-networkx
+networkx>=3.4
 fastapi
 uvicorn
 pydantic
+pymysql
+bcrypt
+PyJWT
+python-multipart

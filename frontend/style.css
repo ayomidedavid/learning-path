@@ -752,6 +752,8 @@ body.app-body .canvas-card {
     opacity: 0.75 !important;
 }
 
+
+
 .node-rect {
     fill: #0d1324;
     stroke: #1e2942;
@@ -853,6 +855,22 @@ body.app-body .canvas-card {
     display: flex;
     flex-direction: column;
     gap: 8px;
+}
+
+.connection-legend {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--glass-border-subtle);
+}
+
+.legend-line-swatch {
+    display: block;
+    width: 14px;
+    height: 3px;
+    flex: 0 0 14px;
+    border-radius: 2px;
+    background: var(--line-color);
+    box-shadow: 0 0 6px var(--line-color);
 }
 
 .legend-item {
@@ -1590,5 +1608,3 @@ body.app-body .sidebar-panel::-webkit-scrollbar-thumb {
         overflow: visible;
     }
 }
-
-

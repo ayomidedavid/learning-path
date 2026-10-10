@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Learning Path | SSM-LPRS</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2">
     <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body class="app-body">
@@ -98,7 +98,6 @@
                                 <span class="prereq-status-tag">Completed</span>
                             </div>
                         </div>
-
                         <div class="sub-header-title">KEY OBJECTIVES</div>
                         <ul class="objectives-list" id="objectives-list-container">
                             <li>Convert accurately across Bases 2, 8, 10, and 16</li>
@@ -170,6 +169,17 @@
                         <div class="legend-item">
                             <span class="legend-dot-gray"></span>
                             <span>Locked Prerequisite</span>
+                        </div>
+                    </div>
+                    <div class="connection-legend">
+                        <div class="legend-header">CONNECTION COLORS</div>
+                        <div class="legend-list">
+                            <div class="legend-item"><span class="legend-line-swatch" style="--line-color: #818cf8;"></span><span>Foundational Numbers &amp; Logic</span></div>
+                            <div class="legend-item"><span class="legend-line-swatch" style="--line-color: #60a5fa;"></span><span>Algebra &amp; Matrices</span></div>
+                            <div class="legend-item"><span class="legend-line-swatch" style="--line-color: #34d399;"></span><span>Geometry &amp; Trigonometry</span></div>
+                            <div class="legend-item"><span class="legend-line-swatch" style="--line-color: #a78bfa;"></span><span>Calculus &amp; Derivatives</span></div>
+                            <div class="legend-item"><span class="legend-line-swatch" style="--line-color: #f472b6;"></span><span>Statistics &amp; Probability</span></div>
+                            <div class="legend-item"><span class="legend-line-swatch" style="--line-color: #fbbf24;"></span><span>Applied Topics</span></div>
                         </div>
                     </div>
                 </div>

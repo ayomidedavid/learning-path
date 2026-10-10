@@ -7,6 +7,7 @@ let selectedModuleId = null;
 let simulation = null;
 let zoomBehavior = null;
 let svgD3 = null;
+let graphBounds = null;
 
 if (!token) window.location.href = 'index.html';
 
@@ -33,7 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Set default selected module
     selectedModuleId = targetTopic;
 
-    renderNetworkGraph();
+    await renderNetworkGraph();
     setupFilters();
     setupZoomControls();
 });
@@ -91,6 +92,20 @@ function getNodeDifficulty(nodeId) {
     return 'SS1';
 }
 
+function getTopicFamilyColor(topicId) {
+    const lower = String(topicId).toLowerCase();
+    if (lower.includes('number') || lower.includes('set') || lower.includes('logic')
+        || lower.includes('indices') || lower.includes('logarithm')) return '#818cf8';
+    if (lower.includes('algebra') || lower.includes('equation') || lower.includes('inequal')
+        || lower.includes('matrix') || lower.includes('series') || lower.includes('variation')) return '#60a5fa';
+    if (lower.includes('geometry') || lower.includes('trigon') || lower.includes('bearing')
+        || lower.includes('coordinate') || lower.includes('circle') || lower.includes('vector')) return '#34d399';
+    if (lower.includes('calculus') || lower.includes('differential') || lower.includes('integration')) return '#a78bfa';
+    if (lower.includes('stat') || lower.includes('probab') || lower.includes('measure')
+        || lower.includes('dispersion')) return '#f472b6';
+    return '#fbbf24';
+}
+
 function getPrerequisiteMap() {
     const map = new Map();
     if (!graphData || !graphData.links) return map;
@@ -145,6 +160,8 @@ function getSubheadingForTopic(topicId) {
 
 async function renderNetworkGraph() {
     if (!graphData || !graphData.nodes) return;
+
+    if (simulation) simulation.stop();
 
     const recommended = await fetchRecommendedPath();
     let route = recommended && recommended.path ? recommended.path : [targetTopic];
@@ -218,7 +235,7 @@ async function renderNetworkGraph() {
     }
 
     zoomBehavior = d3.zoom()
-        .scaleExtent([0.6, 2.0])
+        .scaleExtent([0.3, 2.0])
         .on('zoom', (event) => {
             gContainer.attr('transform', event.transform);
             if (htmlContainer) {
@@ -229,32 +246,22 @@ async function renderNetworkGraph() {
 
     svgD3.call(zoomBehavior);
 
-    // Layout horizontal node sequence alignment with ample spacing
-    const horizontalStep = 320;
-    const startX = 180;
-    const centerY = height / 2 - 20;
-
     nodes.forEach((node, index) => {
-        node.x = startX + index * horizontalStep;
-        node.y = centerY + ((index % 2 === 0) ? -35 : 35);
+        const angle = (index / nodes.length) * Math.PI * 2;
+        const radius = Math.min(width, height) * 0.28;
+        node.x = width / 2 + Math.cos(angle) * radius;
+        node.y = height / 2 + Math.sin(angle) * radius;
     });
 
-    // Render Curved SVG Link Paths
     const linkElements = gContainer.append('g')
         .selectAll('path')
         .data(links)
         .join('path')
-        .attr('class', d => `link-path ${d.inRoute ? 'active' : ''}`);
+        .attr('class', d => `link-path ${d.inRoute ? 'active' : ''}`)
+        .style('stroke', link => getTopicFamilyColor(link.target))
+        .attr('marker-end', null);
 
-    linkElements.attr('d', l => {
-        const sourceNode = nodes.find(n => n.id === (l.source.id || l.source));
-        const targetNode = nodes.find(n => n.id === (l.target.id || l.target));
-        if (!sourceNode || !targetNode) return '';
-        const dx = targetNode.x - sourceNode.x;
-        const dy = targetNode.y - sourceNode.y;
-        const dr = Math.sqrt(dx * dx + dy * dy) * 0.95;
-        return `M ${sourceNode.x} ${sourceNode.y} A ${dr} ${dr} 0 0 1 ${targetNode.x} ${targetNode.y}`;
-    });
+    graphBounds = nodes;
 
     // Render Native HTML Node Cards
     if (htmlContainer) {
@@ -288,6 +295,7 @@ async function renderNetworkGraph() {
             cardEl.style.marginLeft = '-120px';
             cardEl.style.marginTop = '-59px';
             cardEl.setAttribute('data-node-id', d.id);
+            cardEl.setAttribute('data-search-text', `${d.label} ${d.subheading}`.toLowerCase());
 
             cardEl.innerHTML = `
                 <div>
@@ -317,7 +325,43 @@ async function renderNetworkGraph() {
         });
     }
 
+    simulation = d3.forceSimulation(nodes)
+        .force('link', d3.forceLink(links)
+            .id(node => node.id)
+            .distance(link => link.inRoute ? 300 : 260)
+            .strength(link => link.inRoute ? 0.9 : 0.55))
+        .force('charge', d3.forceManyBody().strength(-950))
+        .force('center', d3.forceCenter(width / 2, height / 2))
+        .force('x', d3.forceX(width / 2).strength(0.035))
+        .force('y', d3.forceY(height / 2).strength(0.05))
+        .force('collision', d3.forceCollide(155).iterations(2))
+        .on('tick', () => {
+            linkElements.attr('d', link => {
+                const dx = link.target.x - link.source.x;
+                const dy = link.target.y - link.source.y;
+                const distance = Math.max(1, Math.hypot(dx, dy));
+                const startX = link.source.x + (dx / distance) * 124;
+                const startY = link.source.y + (dy / distance) * 64;
+                const endX = link.target.x - (dx / distance) * 124;
+                const endY = link.target.y - (dy / distance) * 64;
+                return `M${startX},${startY} L${endX},${endY}`;
+            });
+
+            if (htmlContainer) {
+                htmlContainer.querySelectorAll('.node-card-item').forEach(card => {
+                    const node = nodes.find(item => item.id === card.dataset.nodeId);
+                    if (!node) return;
+                    card.style.left = `${node.x}px`;
+                    card.style.top = `${node.y}px`;
+                });
+            }
+        })
+        .on('end', () => fitGraphToView(width, height));
+
     const activeNode = nodes.find(n => n.id === selectedModuleId) || nodes[0];
+    if (activeNode && !nodes.some(node => node.id === selectedModuleId)) {
+        selectedModuleId = activeNode.id;
+    }
     if (activeNode) {
         updateSelectedModuleInspector(activeNode);
     }
@@ -376,13 +420,14 @@ function updateSelectedModuleInspector(node) {
     const prereqList = document.getElementById('prereq-list-container');
     const objList = document.getElementById('objectives-list-container');
     const startBtn = document.getElementById('start-module-btn');
+    const diagBtn = document.getElementById('diagnostic-btn');
+    const prereqs = getPrerequisiteMap().get(node.id) || [];
 
     if (titleEl) titleEl.innerText = node.id || "Module 1: Foundational Numbers";
     if (descEl) descEl.innerText = node.details || "Core prerequisite mastery covering positional representations, binary/modular arithmetic systems, and fundamental root bases.";
     if (levelTagEl) levelTagEl.innerText = `${node.difficulty || 'SS1'} Core`;
 
     if (prereqList) {
-        const prereqs = getPrerequisiteMap().get(node.id) || [];
         if (prereqs.length === 0) {
             prereqList.innerHTML = `
                 <div class="prereq-item">
@@ -421,7 +466,6 @@ function updateSelectedModuleInspector(node) {
         };
     }
 
-    const diagBtn = document.getElementById('diagnostic-btn');
     if (diagBtn) {
         diagBtn.onclick = () => {
             openDiagnosticModal(node);
@@ -642,8 +686,35 @@ function setupZoomControls() {
         zoomOutBtn.onclick = () => svgD3.transition().duration(300).call(zoomBehavior.scaleBy, 0.8);
     }
     if (zoomFitBtn && svgD3 && zoomBehavior) {
-        zoomFitBtn.onclick = () => svgD3.transition().duration(300).call(zoomBehavior.transform, d3.zoomIdentity);
+        zoomFitBtn.onclick = () => fitGraphToView();
     }
+}
+
+function fitGraphToView(width, height) {
+    const stage = document.getElementById('canvas-card');
+    const graphNodes = graphBounds;
+    if (!stage || !svgD3 || !zoomBehavior || !graphNodes || !graphNodes.length) return;
+
+    const viewWidth = width || stage.clientWidth;
+    const viewHeight = height || stage.clientHeight;
+    const paddingX = 150;
+    const paddingY = 90;
+    const minX = Math.min(...graphNodes.map(node => node.x)) - paddingX;
+    const maxX = Math.max(...graphNodes.map(node => node.x)) + paddingX;
+    const minY = Math.min(...graphNodes.map(node => node.y)) - paddingY;
+    const maxY = Math.max(...graphNodes.map(node => node.y)) + paddingY;
+    const graphWidth = maxX - minX;
+    const graphHeight = maxY - minY;
+    const scale = Math.min(
+        1.25,
+        (viewWidth - 32) / graphWidth,
+        (viewHeight - 96) / graphHeight
+    );
+    const x = (viewWidth - graphWidth * scale) / 2 - minX * scale;
+    const y = (viewHeight - graphHeight * scale) / 2 - minY * scale + 20;
+    const transform = d3.zoomIdentity.translate(x, y).scale(Math.max(0.3, scale));
+
+    svgD3.transition().duration(300).call(zoomBehavior.transform, transform);
 }
 
 function updateMinimapViewport(transform, width, height) {
@@ -666,10 +737,15 @@ function setupFilters() {
     if (input) {
         input.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase();
-            d3.selectAll('.node-group').style('opacity', d => {
-                if (!query) return 1;
-                return d.label.toLowerCase().includes(query) || d.subheading.toLowerCase().includes(query) ? 1 : 0.2;
+            const matches = new Set();
+            document.querySelectorAll('.node-card-item').forEach(card => {
+                const isMatch = !query || (card.dataset.searchText || '').includes(query);
+                card.style.opacity = isMatch ? '1' : '0.18';
+                if (isMatch) matches.add(card.dataset.nodeId);
             });
+            d3.selectAll('.link-path')
+                .style('opacity', link => matches.has(link.source.id || link.source)
+                    && matches.has(link.target.id || link.target) ? 1 : 0.12);
         });
     }
 }
@@ -713,4 +789,3 @@ window.addEventListener('resize', () => {
         [canvasCard, inspectorCard, strategyCard].forEach(c => c && c.classList.remove('mobile-tab-hidden'));
     }
 });
-
